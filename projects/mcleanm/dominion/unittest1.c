@@ -1,3 +1,8 @@
+/*
+** Unit test for function: compare()
+** Location: File dominion.c, line 8
+*/
+
 #include "dominion.h"
 #include "dominion_helpers.h"
 #include "rngs.h"
