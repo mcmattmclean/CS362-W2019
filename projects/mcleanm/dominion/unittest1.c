@@ -24,7 +24,7 @@ int main()
     //Same variable (also equal value)
     assert(compare(&same, &same) == 0);
 
-    printf("Compare test passed\n");
+    printf("compare test passed\n");
 
     return 0;
 }
