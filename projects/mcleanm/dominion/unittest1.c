@@ -9,11 +9,11 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-#include <assert.h>
+#include "testHelpers.h"
 
 int main()
 {
-    printf("Testing compare function.\n");
+    printf("Testing compare()\n");
 
     int higher = 1;
     int lower = 0;
@@ -21,15 +21,15 @@ int main()
     int same1 = 1;
 
     //Test for higher first value
-    assert(compare(&higher, &lower) == 1);
+    assertTrue(compare(&higher, &lower) == 1);
     //Lower first value
-    assert(compare(&lower, &higher) == -1);
+    assertTrue(compare(&lower, &higher) == -1);
     //Equal value
-    assert(compare(&same, &same1) == 0);
+    assertTrue(compare(&same, &same1) == 0);
     //Same variable (also equal value)
-    assert(compare(&same, &same) == 0);
+    assertTrue(compare(&same, &same) == 0);
 
-    printf("compare test passed\n");
+    printf("compare test() complete\n");
 
     return 0;
 }

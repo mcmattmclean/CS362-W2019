@@ -9,11 +9,11 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-#include <assert.h>
+#include "testHelpers.h"
 
 int main()
 {
-    printf("Testing kingdomCards\n");
+    printf("Testing kingdomCards()\n");
 
     int k1 = 0;
     int k2 = 1;
@@ -31,9 +31,9 @@ int main()
     int i;
     for(i = 0; i < 10; i++)
     {
-        assert(k[i] == i);
+        assertTrue(k[i] == i);
     }
 
-    printf("kingdomCards test passed\n");
+    printf("kingdomCards() test complete\n");
     return 0;
 }
