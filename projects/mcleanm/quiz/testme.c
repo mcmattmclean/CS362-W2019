@@ -5,14 +5,21 @@
 
 char inputChar()
 {
-    // TODO: rewrite this function
-    return ' ';
+    char r = rand() % (127 - 32) + 32;
+    return r;
 }
 
 char *inputString()
 {
-    // TODO: rewrite this function
-    return "";
+    int i;
+    char* r = malloc(sizeof(char) * 5);
+    char targetWord[6] = "reset";
+    for(i = 0; i < 5; i++)
+    {
+      //Swap out the targetWord... below for inputChar() to make this take way longer
+      r[i] = targetWord[rand() % 5];
+    }
+    return r;
 }
 
 void testme()
