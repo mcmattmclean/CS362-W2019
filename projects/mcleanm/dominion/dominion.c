@@ -661,9 +661,9 @@ int playSmithy(struct gameState *state, int currentPlayer, int handPos)
 	return 0;
 }
 
-int playAdventurer(struct gameState *state, int currentPlayer)
+int playAdventurer(struct gameState *state, int currentPlayer, int handPos)
 {
-	int drawnTreasure = 1;
+	int drawnTreasure = 0;
 	int cardDrawn = 0;
 	int tempHand[MAX_HAND];
 	int handPosition = 0;
@@ -683,13 +683,16 @@ int playAdventurer(struct gameState *state, int currentPlayer)
 			state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).
 			handPosition++;
 		}
-    }
-    while(handPosition-1>=0)
+  }
+  while(handPosition-1>=0)
 	{
 		state->discard[currentPlayer][state->discardCount[currentPlayer]++]=tempHand[handPosition-1]; // discard all cards in play that have been drawn
 		handPosition--;
-    }
-    return 0;
+  }
+  //discard card from hand
+	discardCard(handPos, currentPlayer, state, 0);
+
+  return 0;
 }
 
 int playCouncilRoom(struct gameState *state, int currentPlayer, int handPos)
@@ -835,7 +838,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   switch( card ) 
     {
     case adventurer:
-		return playAdventurer(state, currentPlayer);	
+		return playAdventurer(state, currentPlayer, handPos);	
     case council_room:
 		return playCouncilRoom(state, currentPlayer, handPos);
     case feast:
