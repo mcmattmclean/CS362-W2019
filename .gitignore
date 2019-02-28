@@ -3,3 +3,5 @@
 /projects/mcleanm/FinalProject/URLValidatorCorrect/.classpath
 /projects/mcleanm/FinalProject/URLValidatorCorrect/.project
 /projects/mcleanm/FinalProject/URLValidatorCorrect/bin
+*.plist
+*.dSYM
