@@ -37,7 +37,7 @@ int main()
         }
         state = getRandomState(state, council_room);
 
-        // Play the adventurer, print if successful
+        // Play the council room, print if successful
         printTestResult(playCouncilRoom(state, state->whoseTurn, 1));
     }
 

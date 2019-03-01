@@ -36,7 +36,7 @@ int main()
         }
         state = getRandomState(state, smithy);
 
-        // Play the adventurer, print if successful
+        // Play the smithy, print if successful
         printTestResult(playSmithy(state, state->whoseTurn, 1));
     }
 
