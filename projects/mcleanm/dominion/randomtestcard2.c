@@ -63,6 +63,7 @@ void testCouncilRoom(struct gameState* state)
         }
     }
     free(handSizes);
+    free(deckAndDiscardSizes);
 }
 
 int main() 

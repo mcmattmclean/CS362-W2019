@@ -10,7 +10,7 @@
 #define SIZE_FULL_CARD_SET 16
 #define TEST_MAX_HAND 20
 // assertTrue macro source: https://piazza.com/class/jpu18p346423vs?cid=159
-#define assertTrue(bool) if(bool) {} else printf("TEST FAILED: '" #bool "' on line %d.\n", __LINE__);
+#define assertTrue(bool) if(bool) {} else {printf("TEST FAILED: '" #bool "' on line %d.\n", __LINE__);}
 
 int getRandomNumberPlayers();
 struct gameState* getRandomState(struct gameState*, int cardToTest);
