@@ -10,7 +10,6 @@
 #define FALSE 0
 #define NUMBER_TESTS 1000
 
-
 void printTestResult(int failed)
 {
     if(failed == TRUE)
