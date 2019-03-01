@@ -8,15 +8,61 @@
 
 #define TRUE 1
 #define FALSE 0
-#define NUMBER_TESTS 1000
+#define NUMBER_TESTS 100000
 
 
-void printTestResult(int failed)
+void testCouncilRoom(struct gameState* state)
 {
-    if(failed == TRUE)
+    // Get preconditions
+    int currentPlayer = state->whoseTurn;
+    int numBuys = state->numBuys;
+    int* handSizes = malloc(state->numPlayers * sizeof(int));
+    int* deckAndDiscardSizes = malloc(state->numPlayers * sizeof(int));
+    int i;
+    for(i = 0; i < state->numPlayers; i++)
     {
-        printf("Test failed.");
+        handSizes[i] = state->handCount[i]; // Save hand counts
     }
+    for(i = 0; i < state->numPlayers; i++)
+    {
+        deckAndDiscardSizes[i] = state->discardCount[i] + state->deckCount[i];
+    }
+
+    // Call function to test and check postcondition
+    assertTrue(playCouncilRoom(state, currentPlayer, 1) == 0);
+    assertTrue(state->numBuys == (numBuys + 1));
+    for(i = 0; i < state->numPlayers; i++)
+    {
+        if(i == currentPlayer)
+        {
+            if(deckAndDiscardSizes[i] > 3) // If the player has enough to draw full amount, they should have 3 cards
+            {
+                assertTrue(state->handCount[i] == (handSizes[i] + 3)); // Player of card gets 4 new cards, discarding the played one
+            }
+            else
+            {
+                assertTrue(state->handCount[i] == (handSizes[i] + deckAndDiscardSizes[i] - 1)); // Player of card gets whatever cards are available
+                // printf("Number available: %d\n", deckAndDiscardSizes[i]);
+                // printf("Hand count before: %d\n", handSizes[i]);
+                // printf("Hand count after: %d\n", state->handCount[i]);
+            }
+        }
+        else
+        {
+            if(deckAndDiscardSizes[i] > 0) // If there is a card, other players draw it
+            {
+                assertTrue(state->handCount[i] == (handSizes[i] + 1)); // Other players get 1 new card
+            }
+            else
+            {
+                assertTrue(state->handCount[i] == handSizes[i]);
+                // printf("Number available: %d\n", deckAndDiscardSizes[i]);
+                // printf("Hand count before: %d\n", handSizes[i]);
+                // printf("Hand count after: %d\n", state->handCount[i]);
+            }
+        }
+    }
+    free(handSizes);
 }
 
 int main() 
@@ -37,8 +83,8 @@ int main()
         }
         state = getRandomState(state, council_room);
 
-        // Play the council room, print if successful
-        printTestResult(playCouncilRoom(state, state->whoseTurn, 1));
+        // Test the council room
+        testCouncilRoom(state);
     }
 
     free(state);

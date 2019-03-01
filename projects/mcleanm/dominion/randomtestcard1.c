@@ -8,15 +8,48 @@
 
 #define TRUE 1
 #define FALSE 0
-#define NUMBER_TESTS 1000
+#define NUMBER_TESTS 100000
 
-void printTestResult(int failed)
+void testSmithy(struct gameState* state)
 {
-    if(failed == TRUE)
+    // Get preconditions
+    int currentPlayer = state->whoseTurn;
+    int* handSizes = malloc(state->numPlayers * sizeof(int));
+    int* deckAndDiscardSizes = malloc(state->numPlayers * sizeof(int));
+    int i;
+    for(i = 0; i < state->numPlayers; i++)
     {
-        printf("Test failed.");
+        handSizes[i] = state->handCount[i]; // Save hand counts
     }
+    for(i = 0; i < state->numPlayers; i++)
+    {
+        deckAndDiscardSizes[i] = state->discardCount[i] + state->deckCount[i];
+    }
+
+    // Call function to test and check postcondition
+    assertTrue(playSmithy(state, currentPlayer, 1) == 0);
+    for(i = 0; i < state->numPlayers; i++)
+    {
+        if(i == currentPlayer)
+        {
+            if(deckAndDiscardSizes[i] > 2) // If the player has enough to draw full amount, they should have 3 cards
+            {
+                assertTrue(state->handCount[i] == (handSizes[i] + 2)); // Player of card gets 3 new cards, discarding the played one
+            }
+            else
+            {
+                assertTrue(state->handCount[i] == (handSizes[i] + deckAndDiscardSizes[i] - 1)); // Player of card gets whatever cards are available
+            }
+        }
+        else
+        {
+            assertTrue(state->handCount[i] == (handSizes[i])); // Other players stay the same
+        }
+    }
+    free(handSizes);
+    free(deckAndDiscardSizes);
 }
+
 
 int main() 
 {
@@ -35,9 +68,8 @@ int main()
             state = NULL;
         }
         state = getRandomState(state, smithy);
-
         // Play the smithy, print if successful
-        printTestResult(playSmithy(state, state->whoseTurn, 1));
+        testSmithy(state);
     }
 
     free(state);
