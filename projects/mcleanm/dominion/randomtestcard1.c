@@ -8,7 +8,7 @@
 
 #define TRUE 1
 #define FALSE 0
-#define NUMBER_TESTS 100000
+#define NUMBER_TESTS 10000
 
 void testSmithy(struct gameState* state)
 {

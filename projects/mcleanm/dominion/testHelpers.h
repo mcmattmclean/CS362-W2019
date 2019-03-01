@@ -8,7 +8,7 @@
 #define FALSE 0
 #define SIZE_CARD_SET 10
 #define SIZE_FULL_CARD_SET 16
-#define TEST_MAX_HAND 20
+#define TEST_MAX_HAND 40
 // assertTrue macro source: https://piazza.com/class/jpu18p346423vs?cid=159
 #define assertTrue(bool) if(bool) {} else {printf("TEST FAILED: '" #bool "' on line %d.\n", __LINE__);}
 
