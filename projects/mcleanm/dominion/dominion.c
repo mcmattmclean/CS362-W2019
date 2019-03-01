@@ -664,6 +664,7 @@ int playSmithy(struct gameState *state, int currentPlayer, int handPos)
 int playAdventurer(struct gameState *state, int currentPlayer, int handPos)
 {
 	int drawnTreasure = 0;
+    int treasureInDeck = 0;
 	int cardDrawn = 0;
 	int tempHand[MAX_HAND];
 	int handPosition = 0;
@@ -671,29 +672,49 @@ int playAdventurer(struct gameState *state, int currentPlayer, int handPos)
   //discard card from hand
 	discardCard(handPos, currentPlayer, state, 0);
 
-	while(drawnTreasure<2)
-	{
+    // Count available treasure in deck and discard
+    int i;
+    for(i = 0; i < state->deckCount[currentPlayer]; i++)
+    {
+        if(state->deck[currentPlayer][i] == gold || state->deck[currentPlayer][i] == silver || state->deck[currentPlayer][i] == copper)
+        {
+            treasureInDeck++;
+        }
+    }
+    for(i = 0; i < state->discardCount[currentPlayer]; i++)
+    {
+        if(state->discard[currentPlayer][i] == gold || state->discard[currentPlayer][i] == silver || state->discard[currentPlayer][i] == copper)
+        {
+            treasureInDeck++;
+        }
+    }
 
-		if (state->deckCount[currentPlayer] <1)//if the deck is empty we need to shuffle discard and add to deck
-		{
-			shuffle(currentPlayer, state);
-		}
-		drawCard(currentPlayer, state);
-		cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
-		if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
-		  drawnTreasure++;
-		else
-		{
-			tempHand[handPosition]=cardDrawn;
-			state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).
-			handPosition++;
-		}
-  }
-  while(handPosition-1>=0)
-	{
-		state->discard[currentPlayer][state->discardCount[currentPlayer]++]=tempHand[handPosition-1]; // discard all cards in play that have been drawn
-		handPosition--;
-  }
+    if(treasureInDeck > 0)
+    {
+        while(drawnTreasure<2)
+        {
+
+            if (state->deckCount[currentPlayer] <1)//if the deck is empty we need to shuffle discard and add to deck
+            {
+                shuffle(currentPlayer, state);
+            }
+            drawCard(currentPlayer, state);
+            cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
+            if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
+            drawnTreasure++;
+            else
+            {
+                tempHand[handPosition]=cardDrawn;
+                state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).
+                handPosition++;
+            }
+        }
+        while(handPosition-1>=0)
+        {
+            state->discard[currentPlayer][state->discardCount[currentPlayer]++]=tempHand[handPosition-1]; // discard all cards in play that have been drawn
+            handPosition--;
+        }
+    }
 
   return 0;
 }
