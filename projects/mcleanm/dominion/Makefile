@@ -40,22 +40,22 @@ randomtestresults: randomtestcard1 randomtestcard2 randomtestadventurer
 	./randomtestcard1 >> randomtestcard1.out
 	gcov -b -f dominion.c >> randomtestcard1.out
 	cat dominion.c.gcov >> randomtestcard1.out
-	rm dominion.c.gcov
+	rm *.gcov *.gcda
 
 	./randomtestcard2 >> randomtestcard2.out
 	gcov -b -f dominion.c >> randomtestcard2.out
 	cat dominion.c.gcov >> randomtestcard2.out
-	rm dominion.c.gcov
+	rm *.gcov *.gcda
 
 	./randomtestadventurer >> randomtestadventurer.out
-	gcov -b -f dominion.c >> randomtestcardadventurer.out
-	cat dominion.c.gcov >> randomtestcardadventurer.out
-	rm dominion.c.gcov
+	gcov -b -f dominion.c >> randomtestadventurer.out
+	cat dominion.c.gcov >> randomtestadventurer.out
+	rm *.gcov *.gcda
 
 runtests: testDrawCard 
 	./testDrawCard &> unittestresult.out
 	gcov dominion.c >> unittestresult.out
-	cat dominion.c.gcov >> unittestresult.out
+	cat *.gcov >> unittestresult.out
 
 
 player: player.c interface.o
@@ -64,4 +64,4 @@ player: player.c interface.o
 all: playdom player 
 
 clean:
-	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe
+	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe randomtestadventurer randomtestcard1 randomtestcard2
