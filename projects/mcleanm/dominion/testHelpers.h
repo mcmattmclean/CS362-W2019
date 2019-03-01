@@ -3,12 +3,12 @@
 
 #include "dominion.h"
 
-#define NUMBER_TESTS 100
 #define MIN_PLAYERS 2
 #define TRUE 1
 #define FALSE 0
 #define SIZE_CARD_SET 10
 #define SIZE_FULL_CARD_SET 16
+#define TEST_MAX_HAND 20
 
 int getRandomNumberPlayers();
 struct gameState* getRandomState(struct gameState*, int cardToTest);

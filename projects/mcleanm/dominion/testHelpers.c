@@ -145,6 +145,7 @@ void getRandomPlayerDecks(struct gameState* state, int cardSet[SIZE_FULL_CARD_SE
     int i;
     for(i = 0; i < state->numPlayers; i++)
     {
+        state->deckCount[i] = 0;
         int numCards = rand() % MAX_DECK;
         int j;
         for(j = 0; j < numCards; j++)
@@ -160,7 +161,8 @@ void getRandomPlayerHands(struct gameState* state, int cardSet[SIZE_FULL_CARD_SE
     int i;
     for(i = 0; i < state->numPlayers; i++)
     {
-        int sizeHand = rand() % MAX_HAND;
+        state->handCount[i] = 0;
+        int sizeHand = rand() % TEST_MAX_HAND;
         int j;
         for(j = 0; j < sizeHand; j++)
         {
@@ -175,6 +177,7 @@ void getRandomPlayerDiscards(struct gameState* state, int cardSet[SIZE_FULL_CARD
     int i;
     for(i = 0; i < state->numPlayers; i++)
     {
+        state->discardCount[i] = 0;
         int sizeDiscards = rand() % MAX_DECK;
         int j;
         for(j = 0; j < sizeDiscards; j++)
@@ -187,6 +190,7 @@ void getRandomPlayerDiscards(struct gameState* state, int cardSet[SIZE_FULL_CARD
 
 void getRandomPlayedCards(struct gameState* state, int cardSet[SIZE_FULL_CARD_SET])
 {
+    state->playedCardCount = 0;
     int sizePlayedCards = rand() % MAX_DECK;
     int i;
     for(i = 0; i < sizePlayedCards; i++)
@@ -202,21 +206,20 @@ struct gameState* getRandomState(struct gameState* state, int cardToTest)
 {
     
     state = newGame();
-    state->numPlayers = getRandomNumberPlayers();
+    int numPlayers = getRandomNumberPlayers();
     int* cardSet = getRandomCardSet(cardToTest);
+    initializeGame(numPlayers, cardSet, 1, state);
+
     int* fullCardSet = getFullCardSet(cardSet);
     getRandomSupplyCounts(state, cardSet);
     getRandomEmbargoTokens(state, cardSet);
     getRandomPlayerDecks(state, fullCardSet);
     getRandomPlayerHands(state, fullCardSet);
     getRandomPlayerDiscards(state, fullCardSet);
-    state->outpostPlayed = 0;
-    state->outpostTurn = 0;
+    getRandomPlayedCards(state, fullCardSet);
     state->whoseTurn = rand() % state->numPlayers;
-    state->phase = 0;
     state->numActions = rand() % 3;
     state->numBuys = rand() % 3;
-    state->playedCardCount = rand() % 3;
     state->coins = rand() % 12;
 
     free(cardSet);
