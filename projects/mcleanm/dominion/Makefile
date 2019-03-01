@@ -37,6 +37,11 @@ randomtestadventurer: testHelpers.o randomtestadventurer.c dominion.o rngs.o
 	gcc -o randomtestadventurer randomtestadventurer.c -g dominion.o rngs.o testHelpers.o $(CFLAGS)
 
 randomtestresults: randomtestcard1 randomtestcard2 randomtestadventurer
+	./randomtestadventurer >> randomtestadventurer.out
+	gcov -b -f dominion.c >> randomtestadventurer.out
+	cat dominion.c.gcov >> randomtestadventurer.out
+	rm *.gcov *.gcda
+
 	./randomtestcard1 >> randomtestcard1.out
 	gcov -b -f dominion.c >> randomtestcard1.out
 	cat dominion.c.gcov >> randomtestcard1.out
@@ -45,11 +50,6 @@ randomtestresults: randomtestcard1 randomtestcard2 randomtestadventurer
 	./randomtestcard2 >> randomtestcard2.out
 	gcov -b -f dominion.c >> randomtestcard2.out
 	cat dominion.c.gcov >> randomtestcard2.out
-	rm *.gcov *.gcda
-
-	./randomtestadventurer >> randomtestadventurer.out
-	gcov -b -f dominion.c >> randomtestadventurer.out
-	cat dominion.c.gcov >> randomtestadventurer.out
 	rm *.gcov *.gcda
 
 runtests: testDrawCard 
