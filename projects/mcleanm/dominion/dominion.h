@@ -97,7 +97,7 @@ int playCard(int handPos, int choice1, int choice2, int choice3,
 	     struct gameState *state);
 /* Play card with index handPos from current player's hand */
 
-int playAdventurer(struct gameState *state, int currentPlayer);
+int playAdventurer(struct gameState *state, int currentPlayer, int handPos);
 int playSmithy(struct gameState *state, int currentPlayer, int handPos);
 int playCouncilRoom(struct gameState *state, int currentPlayer, int handPos);
 
