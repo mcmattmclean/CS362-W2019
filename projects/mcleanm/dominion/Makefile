@@ -57,6 +57,41 @@ runtests: testDrawCard
 	gcov dominion.c >> unittestresult.out
 	cat *.gcov >> unittestresult.out
 
+unittest1: testHelpers.h unittest1.c dominion.o rngs.o
+	gcc -o unittest1 unittest1.c -g dominion.o rngs.o $(CFLAGS)
+
+unittest2: testHelpers.h unittest2.c dominion.o rngs.o
+	gcc -o unittest2 unittest2.c -g dominion.o rngs.o $(CFLAGS)
+
+unittest3: testHelpers.h unittest3.c dominion.o rngs.o
+	gcc -o unittest3 unittest3.c -g dominion.o rngs.o $(CFLAGS)
+
+unittest4: testHelpers.h unittest4.c dominion.o rngs.o
+	gcc -o unittest4 unittest4.c -g dominion.o rngs.o $(CFLAGS)
+
+cardtest1: testHelpers.h cardtest1.c dominion.o rngs.o
+	gcc -o cardtest1 cardtest1.c -g dominion.o rngs.o $(CFLAGS)
+
+cardtest2: testHelpers.h cardtest2.c dominion.o rngs.o
+	gcc -o cardtest2 cardtest2.c -g dominion.o rngs.o $(CFLAGS)
+
+cardtest3: testHelpers.h cardtest3.c dominion.o rngs.o
+	gcc -o cardtest3 cardtest3.c -g dominion.o rngs.o $(CFLAGS)
+
+cardtest4: testHelpers.h cardtest4.c dominion.o rngs.o
+	gcc -o cardtest4 cardtest4.c -g dominion.o rngs.o $(CFLAGS)
+
+unittestresults: unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4
+	./unittest1 >> unittestresults.out
+	./unittest2 >> unittestresults.out
+	./unittest3 >> unittestresults.out
+	./unittest4 >> unittestresults.out
+	./cardtest1 >> unittestresults.out
+	./cardtest2 >> unittestresults.out
+	./cardtest3 >> unittestresults.out
+	./cardtest4 >> unittestresults.out
+	gcov -b -f dominion.c >> unittestresults.out
+	cat dominion.c.gcov >> unittestresults.out
 
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
