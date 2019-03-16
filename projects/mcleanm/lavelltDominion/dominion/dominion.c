@@ -646,14 +646,15 @@ int getCost(int cardNumber)
   return -1;
 }
 
-int effectAdventurer(int currentPlayer, struct gameState *state) {
+int effectAdventurer(int currentPlayer, struct gameState *state, int handPos) {
 	int temphand[MAX_HAND];
 	int z = 0; // temphand counter
 	int cardDrawn = -1; // originally uninit (could break in future)
 	int drawntreasure = 0;
 
-	//while (drawntreasure<2) {
-	while (drawntreasure<3) { // 2 is original. playdom 30 results in P0: 0, P1: 51
+	discardCard(handPos, currentPlayer, state, 0);
+
+	while (drawntreasure<2) {
 		if (state->deckCount[currentPlayer] <1) {//if the deck is empty we need to shuffle discard and add to deck
 			shuffle(currentPlayer, state);
 		}
@@ -682,7 +683,7 @@ int effectSmithy(int currentPlayer, struct gameState *state, int handPos) {
 	int i;
 
 	//+3 Cards
-	for (i = 0; i < 2; i++) // 3 is original
+	for (i = 0; i < 3; i++)
 	{
 		drawCard(currentPlayer, state);
 	}
@@ -692,11 +693,14 @@ int effectSmithy(int currentPlayer, struct gameState *state, int handPos) {
 	return 0;
 }
 
-int effectFeast(int currentPlayer, struct gameState *state, int choice1) {
+int effectFeast(int currentPlayer, struct gameState *state, int choice1, int handPos) {
 	//gain card with cost up to 5
 	//Backup hand
 	int temphand[MAX_HAND];
 	int i;
+
+	//Discard and trash
+	discardCard(handPos, currentPlayer, state, 1);
 
 	for (i = 0; i <= state->handCount[currentPlayer]; i++) {
 		temphand[i] = state->hand[currentPlayer][i];//Backup card
@@ -907,7 +911,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 		 //z=z-1;
 	  //     }
 	  //     return 0;
-	  return effectAdventurer(currentPlayer, state);
+	  return effectAdventurer(currentPlayer, state, handPos);
 
   case council_room:
 	  //+4 Cards
@@ -986,7 +990,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 	  //     			
 	  //     return 0;
 
-	  return effectFeast(currentPlayer, state, choice1);
+	  return effectFeast(currentPlayer, state, choice1, handPos);
 
   case gardens:
 	  return -1;
