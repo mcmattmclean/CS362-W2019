@@ -52,10 +52,20 @@ randomtestresults: randomtestcard1 randomtestcard2 randomtestadventurer
 	cat dominion.c.gcov >> randomtestcard2.out
 	rm *.gcov *.gcda
 
-runtests: testDrawCard 
-	./testDrawCard &> unittestresult.out
-	gcov dominion.c >> unittestresult.out
-	cat *.gcov >> unittestresult.out
+runtests: unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 randomtestcard1 randomtestcard2 randomtestadventurer
+	./unittest1 >> testresults.out
+	./unittest2 >> testresults.out
+	./unittest3 >> testresults.out
+	./unittest4 >> testresults.out
+	./cardtest1 >> testresults.out
+	./cardtest2 >> testresults.out
+	./cardtest3 >> testresults.out
+	./cardtest4 >> testresults.out
+	./randomtestadventurer >> testresults.out
+	./randomtestcard1 >> testresults.out
+	./randomtestcard2 >> testresults.out
+	gcov -b -f dominion.c >> testresults.out
+	cat dominion.c.gcov >> testresults.out
 
 unittest1: testHelpers.h unittest1.c dominion.o rngs.o
 	gcc -o unittest1 unittest1.c -g dominion.o rngs.o $(CFLAGS)

@@ -1,9 +1,9 @@
-# Matthew McLean's copy of dominion code for assignment 4
+# Matthew McLean's copy of dominion code for assignment 5
 
-To compile and run the random tests, do the following:
+To compile and run all tests, do the following:
 
 ```
-make randomtestresults
+make runtests
 ```
 
-This will generate three randomtestadventurer.out, randomtestcard1.out, and randomtest2.out with the test output and gcov coverage information. If the .out files already exist, you must remove them prior to running this (make clean works here), or the results will be concatenated onto the existing files.
+This will generate testresults.out with the test output and gcov coverage information. If the .out file already exists, you must remove it prior to running this (make clean works here), or the result will be concatenated onto the existing files.
