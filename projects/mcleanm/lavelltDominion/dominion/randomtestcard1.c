@@ -27,7 +27,7 @@ void testSmithy(struct gameState* state)
     }
 
     // Call function to test and check postcondition
-    assertTrue(playSmithy(state, currentPlayer, 1) == 0);
+    assertTrue(cardEffect(smithy, 0, 0, 0, state, 1, 0) == 0);
     for(i = 0; i < state->numPlayers; i++)
     {
         if(i == currentPlayer)

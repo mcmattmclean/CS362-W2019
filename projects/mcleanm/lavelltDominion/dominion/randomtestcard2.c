@@ -29,7 +29,8 @@ void testCouncilRoom(struct gameState* state)
     }
 
     // Call function to test and check postcondition
-    assertTrue(playCouncilRoom(state, currentPlayer, 1) == 0);
+    assertTrue(cardEffect(council_room, 0, 0, 0, state, 1, 0) == 0);
+
     assertTrue(state->numBuys == (numBuys + 1));
     for(i = 0; i < state->numPlayers; i++)
     {

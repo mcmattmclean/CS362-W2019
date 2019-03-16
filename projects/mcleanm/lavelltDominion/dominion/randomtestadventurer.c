@@ -35,7 +35,7 @@ void testAdventurer(struct gameState* state)
     }
 
     // Call function to test and check postcondition
-    assertTrue(playAdventurer(state, currentPlayer, 1) == 0);
+    assertTrue(cardEffect(adventurer, 0, 0, 0, state, 1, 0) == 0);
     
     if(treasureInDeck > 1)
     {

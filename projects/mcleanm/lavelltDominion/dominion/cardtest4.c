@@ -18,17 +18,21 @@ void checkStartingConditions(struct gameState *state)
 {
   assertTrue(state->handCount[player1] == 5);
   assertTrue(state->deckCount[player1] == 5);
+  assertTrue(state->discardCount[player1] == 0);
   assertTrue(state->handCount[player2] == 0);
   assertTrue(state->deckCount[player2] == 10);
+  assertTrue(state->discardCount[player2] == 0);
 }
 
 void checkPostConditionsCardAdded(struct gameState *state)
 {
-  assertTrue(state->handCount[player1] == 5);
+  assertTrue(state->handCount[player1] == 4);
   assertTrue(state->deckCount[player1] == 5);
+  assertTrue(state->discardCount[player1] == 1);
 
   assertTrue(state->handCount[player2] == 0);
   assertTrue(state->deckCount[player2] == 10);
+  assertTrue(state->discardCount[player2] == 0);
 
   assertTrue(state->playedCards[0] != feast);
 }
@@ -37,9 +41,11 @@ void checkPostConditionsCardNotAdded(struct gameState *state)
 {
   assertTrue(state->handCount[player1] == 4);
   assertTrue(state->deckCount[player1] == 5);
+  assertTrue(state->discardCount[player1] == 0);
 
   assertTrue(state->handCount[player2] == 0);
   assertTrue(state->deckCount[player2] == 10);
+  assertTrue(state->discardCount[player2] == 0);
 
   assertTrue(state->playedCards[0] != feast);
 }
